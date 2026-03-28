@@ -9,7 +9,6 @@
     
     <style>
         :root {
-            /* โทนสีร้านนวด อบอุ่น สดใส สบายตา */
             --bg-color: #fbf8f1; 
             --text-main: #4a3b32; 
             --text-muted: #8a7b72;
@@ -51,122 +50,138 @@
             margin-top: 10px; font-size: 26px; font-weight: 600; color: var(--text-main);
         }
 
-        /* Widgets Container */
+        /* =========================================
+           WIDGETS AREA (Grid 2 คอลัมน์ 1:1)
+           ========================================= */
         .widgets-container {
-            display: flex; flex-direction: column; gap: 25px; padding: 0 20px; margin-bottom: 40px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* แบ่ง 2 คอลัมน์เท่าๆ กัน */
+            gap: 15px; 
+            padding: 0 20px; 
+            margin-bottom: 40px;
         }
 
-        /* 1. วิดเจ็ตเวลา 3D macOS Style */
+        /* 1. วิดเจ็ตเวลา (สี่เหลี่ยมจัตุรัส 1:1) */
         .widget-clock {
+            aspect-ratio: 1 / 1; /* ล็อกสัดส่วน 1:1 */
+            width: 100%;
             background-color: #ffffff;
-            border-radius: 28px;
-            padding: 20px;
+            border-radius: 24px;
+            padding: 12px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.05), inset 0 2px 5px rgba(255,255,255,0.8);
             position: relative;
-            /* Dotted Background */
             background-image: radial-gradient(#e0e0e0 2px, transparent 2px);
             background-size: 16px 16px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden; /* กันเนื้อหาล้นกล่อง */
         }
-        .mac-dots { display: flex; gap: 6px; margin-bottom: 15px; }
-        .mac-dot { width: 12px; height: 12px; border-radius: 50%; }
+        .mac-dots { display: flex; gap: 5px; margin-bottom: 8px; }
+        .mac-dot { width: 10px; height: 10px; border-radius: 50%; }
         .mac-dot.red { background-color: #ff5f56; }
         .mac-dot.yellow { background-color: #ffbd2e; }
         .mac-dot.green { background-color: #27c93f; }
         
-        /* Bounding Box กรอบฟ้า */
         .bounding-box {
             border: 2px solid #4da6ff;
             background: rgba(255, 255, 255, 0.7);
             border-radius: 8px;
-            padding: 20px 10px 30px 10px;
+            padding: 10px 5px;
             position: relative;
             text-align: center;
-            margin: 0 10px;
+            margin: auto 5px; 
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         .handle {
-            width: 8px; height: 8px; background: white; border: 2px solid #4da6ff;
-            position: absolute;
+            width: 6px; height: 6px; background: white; border: 2px solid #4da6ff; position: absolute;
         }
-        .h-tl { top: -5px; left: -5px; }
-        .h-tr { top: -5px; right: -5px; }
-        .h-bl { bottom: -5px; left: -5px; }
-        .h-br { bottom: -5px; right: -5px; }
+        .h-tl { top: -4px; left: -4px; }
+        .h-tr { top: -4px; right: -4px; }
+        .h-bl { bottom: -4px; left: -4px; }
+        .h-br { bottom: -4px; right: -4px; }
 
-        .time-am-pm { color: #ff5f56; font-weight: 700; font-size: 14px; margin-bottom: -5px; }
-        .time-main { font-family: 'Nunito', sans-serif; font-size: 52px; font-weight: 800; color: #2d3436; line-height: 1; }
-        .time-sec { font-size: 20px; color: #a4b0be; margin-left: 5px; }
+        /* ใช้ clamp เพื่อให้ตัวหนังสือปรับขนาดตามหน้าจอ */
+        .time-am-pm { color: #ff5f56; font-weight: 700; font-size: clamp(10px, 2.5vw, 12px); margin-bottom: -2px; }
+        .time-main { font-family: 'Nunito', sans-serif; font-size: clamp(24px, 6.5vw, 36px); font-weight: 800; color: #2d3436; line-height: 1; }
+        .time-sec { font-size: clamp(12px, 3vw, 16px); color: #a4b0be; margin-left: 2px; }
         
-        /* ป้ายวันที่ไล่สี */
         .date-badge {
-            position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%);
-            background: linear-gradient(135deg, #fbc2eb, #a6c1ee); /* โทนชมพู-ฟ้าพาสเทล */
-            color: white; font-weight: 600; font-size: 14px;
-            padding: 6px 16px; border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            position: absolute; bottom: -12px; left: 50%; transform: translateX(-50%);
+            background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+            color: white; font-weight: 600; font-size: clamp(9px, 2.5vw, 12px);
+            padding: 4px 10px; border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             white-space: nowrap;
         }
         
-        /* ไอคอนตกแต่งในกรอบเวลา */
         .weather-icon {
-            position: absolute; top: -15px; right: -10px;
-            font-size: 45px; color: #ffbd2e; text-shadow: 0 5px 15px rgba(255,189,46,0.4);
+            position: absolute; top: -10px; right: -8px;
+            font-size: clamp(24px, 6vw, 32px); color: #ffbd2e; text-shadow: 0 5px 15px rgba(255,189,46,0.4);
         }
         .weather-icon.moon { color: #a4b0be; text-shadow: 0 5px 15px rgba(164,176,190,0.4); }
         .cursor-icon {
-            position: absolute; bottom: -20px; left: 20%;
-            font-size: 28px; color: #ff4757; transform: rotate(-25deg);
+            position: absolute; bottom: -12px; left: 10%;
+            font-size: clamp(16px, 4vw, 22px); color: #ff4757; transform: rotate(-25deg);
             filter: drop-shadow(2px 4px 6px rgba(255,71,87,0.3));
         }
 
-        /* 2. ปฏิทิน Glassmorphism ออร่าส้ม-บานเย็น */
-        .widget-calendar-wrapper { position: relative; padding: 20px 0; }
+        /* 2. วิดเจ็ตปฏิทิน (สี่เหลี่ยมจัตุรัส 1:1) */
+        .widget-calendar-wrapper { 
+            aspect-ratio: 1 / 1; /* ล็อกสัดส่วน 1:1 */
+            width: 100%;
+            position: relative; 
+        }
         .calendar-aura {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 80%; height: 80%;
-            background: radial-gradient(circle, #ff0844 0%, #ffb199 100%); /* ออร่าบานเย็น-ส้ม */
-            filter: blur(40px); opacity: 0.6; z-index: 0;
+            width: 85%; height: 85%;
+            background: radial-gradient(circle, #ff0844 0%, #ffb199 100%);
+            filter: blur(30px); opacity: 0.6; z-index: 0;
             border-radius: 50%;
         }
         .calendar-glass {
-            position: relative; z-index: 1;
+            position: absolute; /* ล็อกให้เต็ม wrapper เป๊ะๆ */
+            top: 0; left: 0; right: 0; bottom: 0;
+            z-index: 1;
             background: rgba(255, 255, 255, 0.4);
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.6);
-            border-radius: 28px; padding: 25px;
+            border-radius: 24px; padding: 12px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            display: flex; flex-direction: column; justify-content: space-between;
+            overflow: hidden;
         }
-        .cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .cal-tabs {
-            background: rgba(255,255,255,0.5); border-radius: 12px; display: flex; padding: 4px;
-        }
-        .cal-tab { padding: 6px 16px; border-radius: 8px; font-size: 14px; color: #555; }
+        .cal-header { display: flex; justify-content: space-between; align-items: center; }
+        .cal-tabs { background: rgba(255,255,255,0.5); border-radius: 8px; display: flex; padding: 3px; }
+        .cal-tab { padding: 4px 8px; border-radius: 6px; font-size: clamp(9px, 2vw, 11px); color: #555; }
         .cal-tab.active { background: white; font-weight: 600; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .cal-setting {
-            width: 35px; height: 35px; background: rgba(255,255,255,0.6);
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            width: 24px; height: 24px; background: rgba(255,255,255,0.6);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px;
         }
+        
         .cal-title {
-            display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 30px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; flex-grow: 1;
         }
-        .cal-month { font-family: 'Nunito', sans-serif; font-size: 42px; font-weight: 800; color: white; text-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .cal-date-num { font-family: 'Nunito', sans-serif; font-size: 56px; font-weight: 800; color: white; text-shadow: 0 2px 10px rgba(0,0,0,0.1); line-height: 0.8; }
+        .cal-month { font-family: 'Nunito', sans-serif; font-size: clamp(16px, 4.5vw, 24px); font-weight: 800; color: white; text-shadow: 0 2px 10px rgba(0,0,0,0.1); line-height: 1; }
+        .cal-date-num { font-family: 'Nunito', sans-serif; font-size: clamp(32px, 8.5vw, 46px); font-weight: 800; color: white; text-shadow: 0 2px 10px rgba(0,0,0,0.1); line-height: 1.1; }
 
-        /* Week Curve */
+        /* Week Curve ย่อส่วน */
         .week-curve {
             display: flex; justify-content: space-between; align-items: flex-end;
-            height: 90px; position: relative; padding: 0 10px;
+            height: 40px; position: relative; padding: 0 2px;
         }
         .day-col {
-            display: flex; flex-direction: column; align-items: center; gap: 8px;
+            display: flex; flex-direction: column; align-items: center; gap: 3px;
             color: rgba(255,255,255,0.9); transition: all 0.3s ease;
         }
-        .day-name { font-size: 13px; font-weight: 500; }
-        .day-num { font-family: 'Nunito', sans-serif; font-size: 16px; font-weight: 700; }
-        .day-col.today {
-            color: white; transform: scale(1.1);
-        }
+        .day-name { font-size: clamp(8px, 2vw, 10px); font-weight: 500; }
+        .day-num { font-family: 'Nunito', sans-serif; font-size: clamp(10px, 2.5vw, 13px); font-weight: 700; }
+        .day-col.today { color: white; transform: scale(1.1); }
         .day-col.today .day-num {
             background: linear-gradient(135deg, #ff0844, #ffb199);
-            width: 36px; height: 36px; border-radius: 50%;
+            width: 22px; height: 22px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
             box-shadow: 0 4px 12px rgba(255, 8, 68, 0.4);
         }
@@ -191,10 +206,10 @@
         .card-title { font-size: 16px; font-weight: 500; margin-bottom: 8px; }
         .card-info {
             display: flex; justify-content: space-between; font-size: 13px;
-            background: var(--bg-color); padding: 6px 10px; border-radius: 10px;
+            background: #fbf8f1; padding: 6px 10px; border-radius: 10px;
         }
 
-        /* Floating Bottom Nav (แบบเกาะลอยและเบลอสูง) */
+        /* Floating Bottom Nav */
         .bottom-nav {
             position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
             width: 85%; max-width: 400px;
@@ -209,14 +224,12 @@
         .nav-item {
             display: flex; flex-direction: column; align-items: center; gap: 6px;
             color: var(--text-muted); cursor: pointer;
-            /* แอนิเมชั่นเขย่าดุ๊กดิ๊กตลอดเวลา */
             animation: dugDikJiggle 3s infinite ease-in-out;
         }
         .nav-item i { font-size: 26px; transition: 0.3s; }
         .nav-item span { font-size: 14px; font-weight: 600; }
         .nav-item.active { color: var(--accent); animation: none; }
         
-        /* แอนิเมชั่นตอนคลิก (dugDikScale) */
         .dugDikScale { animation: scalePop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important; }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
@@ -276,7 +289,6 @@
                 <div class="cal-header">
                     <div class="cal-tabs">
                         <div class="cal-tab active">Weekly</div>
-                        <div class="cal-tab">Monthly</div>
                     </div>
                     <div class="cal-setting"><i class="fa-solid fa-gear" style="color:#555"></i></div>
                 </div>
@@ -306,6 +318,16 @@
                 <div class="card-title">นวดอโรมา</div>
                 <div class="card-info"><span>1.5 ชม.</span><span style="color:var(--accent); font-weight:600;">฿ 599</span></div>
             </div>
+            <div class="card">
+                <div class="card-img"><i class="fa-solid fa-hands"></i></div>
+                <div class="card-title">นวดคอบ่าไหล่</div>
+                <div class="card-info"><span>1 ชม.</span><span style="color:var(--accent); font-weight:600;">฿ 350</span></div>
+            </div>
+            <div class="card">
+                <div class="card-img"><i class="fa-solid fa-shoe-prints"></i></div>
+                <div class="card-title">นวดฝ่าเท้า</div>
+                <div class="card-info"><span>1 ชม.</span><span style="color:var(--accent); font-weight:600;">฿ 250</span></div>
+            </div>
         </div>
     </div>
 
@@ -318,6 +340,15 @@
             <div>
                 <h3 style="font-size: 16px; margin-bottom: 5px;">ดื่มน้ำอุ่นหลังนวด</h3>
                 <p style="font-size: 13px; color: var(--text-muted);">ช่วยขับของเสียออกจากร่างกาย และทำให้กล้ามเนื้อผ่อนคลายยิ่งขึ้น</p>
+            </div>
+        </div>
+        <div class="card" style="margin-bottom: 15px; text-align: left; display: flex; gap: 15px; align-items: center;">
+            <div style="font-size: 30px; color: #73a4d4; background: #ebf3f8; padding: 15px; border-radius: 15px;">
+                <i class="fa-solid fa-bed"></i>
+            </div>
+            <div>
+                <h3 style="font-size: 16px; margin-bottom: 5px;">พักผ่อนให้เพียงพอ</h3>
+                <p style="font-size: 13px; color: var(--text-muted);">ร่างกายต้องการการฟื้นฟู ควรนอนหลับให้เต็มอิ่ม</p>
             </div>
         </div>
     </div>
@@ -334,29 +365,23 @@
     </div>
 
     <script>
-        // ฟังก์ชันสลับหน้าพร้อมแอนิเมชั่นเด้งดุ๊กดิ๊ก (dugDikScale)
         function switchTab(tabId, element) {
-            // เพิ่ม Class เด้งขยาย
             element.classList.add('dugDikScale');
             setTimeout(() => element.classList.remove('dugDikScale'), 400);
 
-            // จัดการคลาส Active
             document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
             element.classList.add('active');
 
-            // สลับหน้า Section
             document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
             document.getElementById(tabId + '-section').classList.add('active');
         }
 
-        // --- ระบบเวลา (Clock Widget) ---
         function updateClock() {
             const now = new Date();
             let hours = now.getHours();
             const mins = String(now.getMinutes()).padStart(2, '0');
             const secs = String(now.getSeconds()).padStart(2, '0');
             
-            // เปลี่ยนไอคอนพระอาทิตย์/พระจันทร์อัตโนมัติ (เลย 18:00 หรือก่อน 06:00 เป็นพระจันทร์)
             const weatherIcon = document.getElementById('weather-icon');
             if (hours >= 18 || hours < 6) {
                 weatherIcon.className = "fa-solid fa-moon weather-icon moon";
@@ -364,43 +389,36 @@
                 weatherIcon.className = "fa-solid fa-sun weather-icon";
             }
 
-            // จัดการ AM/PM
             const ampm = hours >= 12 ? 'PM' : 'AM';
             hours = hours % 12;
-            hours = hours ? hours : 12; // ถ้าเป็น 0 ให้แสดง 12
+            hours = hours ? hours : 12; 
             const strHours = String(hours).padStart(2, '0');
 
             document.getElementById('am-pm').innerText = ampm;
             document.getElementById('time-hhmm').innerText = `${strHours}:${mins}`;
             document.getElementById('time-ss').innerText = secs;
 
-            // อัปเดตป้ายวันที่ใต้กรอบเวลา (เช่น Dec 16)
             const monthNamesShort = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
             document.getElementById('clock-date-badge').innerText = `${monthNamesShort[now.getMonth()]} ${now.getDate()}`;
         }
 
-        // --- ระบบปฏิทินโค้ง (Calendar Widget) ---
         function renderCalendar() {
             const now = new Date();
             const monthNamesFull = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-            const dayNamesShort = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+            const dayNamesShort = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
             
-            // อัปเดตหัวปฏิทินตัวใหญ่
             document.getElementById('cal-month-text').innerText = monthNamesFull[now.getMonth()];
             document.getElementById('cal-date-big').innerText = now.getDate();
 
-            // คำนวณวันในสัปดาห์นี้
             const weekContainer = document.getElementById('week-curve-container');
             weekContainer.innerHTML = '';
             
-            // หาวันอาทิตย์ของสัปดาห์นี้เป็นจุดเริ่มต้น
             const todayIndex = now.getDay(); 
             const startDate = new Date(now);
             startDate.setDate(now.getDate() - todayIndex);
 
-            // ค่าแกน Y สำหรับทำให้โค้ง (ตรงกลางอยู่ต่ำสุด ขอบสูงขึ้น)
-            // Array ตำแหน่ง: Sun, Mon, Tue, Wed, Thu, Fri, Sat (Index 0-6 ตรงกลางคือ 3)
-            const curveY = [18, 8, 2, 0, 2, 8, 18]; 
+            // ปรับระดับความโค้งลงอีกเพื่อให้ไม่เบียดในกล่อง 1:1
+            const curveY = [8, 4, 1, 0, 1, 4, 8]; 
 
             for (let i = 0; i < 7; i++) {
                 const iterDate = new Date(startDate);
@@ -408,11 +426,9 @@
                 
                 const isToday = iterDate.getDate() === now.getDate() && iterDate.getMonth() === now.getMonth();
                 
-                // สร้าง Element แต่ละวัน
                 const dayCol = document.createElement('div');
                 dayCol.className = `day-col ${isToday ? 'today' : ''}`;
                 
-                // ใช้คณิตศาสตร์ดันแกน Y ให้โค้งสวยงาม
                 dayCol.style.transform = `translateY(-${curveY[i]}px) ${isToday ? 'scale(1.1)' : ''}`;
 
                 dayCol.innerHTML = `
@@ -423,10 +439,9 @@
             }
         }
 
-        // เริ่มต้นการทำงาน
         updateClock();
         renderCalendar();
-        setInterval(updateClock, 1000); // อัปเดตเวลาทุก 1 วินาที
+        setInterval(updateClock, 1000); 
     </script>
 </body>
 </html>
